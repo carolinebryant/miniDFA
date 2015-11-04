@@ -3,6 +3,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/*
+Run Instructions:
+
+ */
 public class Main {
 	
 	private static ArrayList<Integer> lastReads;  
@@ -81,18 +85,15 @@ public class Main {
 				wasRead = false;
 				
 				// splitLine[0] is our instruction type
-				switch(splitLine[0].trim()) {
-				
-					case "lw":
-						wasLoaded = true;
-						wasRead = true;
-						
-					case "sw":
-						wasRead = true;
-						
-					default:
-						wasWritten = true;
-				}		
+				//Changed from switch to if else, as switch on strings doesn't work with Java 7
+				if(splitLine[0].trim().equals("lw")) {
+					wasLoaded = true;
+					wasRead = true;
+				} else if(splitLine[0].trim().equals("sw")){
+					wasRead = true;
+				} else {
+					wasWritten = true;
+				}
 				
 				// build a dependency table 
 				int reg = -1;
@@ -194,9 +195,9 @@ public class Main {
 						registerNames[regs.get(0)] = 10 + lineNum;
 					} 				
 				}
-				
-				lineNum++;
-				lines.add(grabbedLine);	
+
+						lineNum++;
+						lines.add(grabbedLine);
 				grabbedLine = br.readLine();
 			}
 			
