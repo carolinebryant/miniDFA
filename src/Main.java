@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /*
- * Java project to simulate a MIPS machine
+ * Java project to emulate a MIPS machine
  * 
  * Made my Caroline Bryant and Ryan Becwar
  * 
  * Run Instructions:
  * javac Main.java
- * java Main [-r] [-l<load delay>] <MIPS file path>
+ * java Main [-r] [-l<cycles delay>] <MIPS file path>
  */
 public class Main {
 	
@@ -28,9 +28,12 @@ public class Main {
 	private static boolean wasWritten = false;
 	private static boolean wasLoaded = false;
 	private static boolean rename = false;
-	
+
+	private static OutputWindow outputWindow;
+
 	public static void main(String[] args){
-		
+
+		outputWindow = new OutputWindow();
 		// initalize variables 
 		lastReads = new ArrayList<Integer>();
 		lastWrites = new ArrayList<Integer>();
@@ -222,21 +225,21 @@ public class Main {
 			}
 			
 			// print out final data flow levels
-			System.out.println("load delay set to " + (loadDelay));
+			writeOut("load delay set to " + (loadDelay));
 			for (int i = 0; i <= largestVal; i++) {
-				
+
 				boolean hasInst = false;
-			
+
 				for (int j = 0; j < cycles.size(); j++) {
 					if (cycles.get(j) == i) {
-						if(!hasInst) System.out.println("level " + i + " instructions:");
+						if(!hasInst) writeOut("level " + i + " instructions:");
 						hasInst = true;
-	
-						System.out.println("\t" + j + " " + lines.get(j));
+
+						writeOut("\t" + j + " " + lines.get(j));
 					}
 				}
-			}	
-			System.out.println("the data flow can be executed in " +
+			}
+			writeOut("the data flow can be executed in " +
 								(largestVal+1) + " cycles");
 			
 		} catch(IOException e) {
@@ -245,4 +248,9 @@ public class Main {
 		
 	}
 
+	//Simplifies output to write to the console and output window
+	private static void writeOut(String text){
+		System.out.println(text);
+		outputWindow.addText(text);
+	}
 }
