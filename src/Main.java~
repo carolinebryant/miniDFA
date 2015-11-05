@@ -79,9 +79,9 @@ public class Main {
 			
 			String grabbedLine = br.readLine();
 			int lineNum = 0;
-			while(grabbedLine != null) { // looping while we have instructions 
+			while(grabbedLine != null) {
 				
-				// split up line - process instruction
+				// split up line
 				String[] splitLine = grabbedLine.split("\\$");
 
 				// re-setting our flags
@@ -90,6 +90,7 @@ public class Main {
 				wasRead = false;
 				
 				// splitLine[0] is our instruction type
+				//Changed from switch to if else, as switch on strings doesn't work with Java 7
 				if(splitLine[0].trim().equals("lw")) {
 					wasLoaded = true;
 					wasRead = true;
