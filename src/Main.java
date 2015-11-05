@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /*
-Run Instructions:
-
+ * Java project to simulate a MIPS machine
+ * 
+ * Made my Caroline Bryant and Ryan Becwar
+ * 
+ * Run Instructions:
+ * javac Main.java
+ * java Main [-r] [-l<load delay>] <MIPS file path>
  */
 public class Main {
 	
@@ -177,24 +182,23 @@ public class Main {
 					}
 				}
 				
+				//
 				if(rename){
 					Integer writeReg = regs.get(0) + 1;
+				
+					String a = new Integer(10 + lineNum).toString();
+					String b = new Integer(registerNames[regs.get(1)]).toString();
+					String c;
 					
-					if(wasWritten){
-						String a = new Integer(10 + lineNum).toString();
-						String b = new Integer(registerNames[regs.get(1)]).toString();
-						String c;
-						
-						grabbedLine += " with renaming d/s1/s2 regs to " + a + " " + b;
-						
-						if(regs.size() == 3){
-							c = new Integer(registerNames[regs.get(2)]).toString();
-							grabbedLine += " " + c;
-						}
-						else
-							grabbedLine += " -";
+					grabbedLine += " with renaming d/s1/s2 regs to " + a + " " + b;
+					
+					if(regs.size() == 3){
+						c = new Integer(registerNames[regs.get(2)]).toString();
+						grabbedLine += " " + c;
 					}
-					
+					else
+						grabbedLine += " -";
+										
 					if(wasLoaded || wasWritten){
 						registerNames[regs.get(0)] = 10 + lineNum;
 					} 				
